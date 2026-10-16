@@ -1,0 +1,24 @@
+# 5 BBRv1 flows alone through a PI2 bottleneck: 100 Mbps, 10 ms base RTT, 8-BDP buffer, PI2 target 15 ms.
+name: bbr1_100mbps_rtt10_target15
+
+common_parameters:
+  send_duration: 40  # s
+  truncate_front: 0  # s
+  truncate_back: 0  # s
+
+varying_parameters:
+  senders: [5]
+  link_capacity: [100]  # Mbps
+  switch_buffer: [16.134146341463413]  # in BDPs of link_latency: 661 packets = 8 BDPs of the 10 ms base RTT
+  cc_combination:
+    - [BBR]
+  link_latency: [4.9]  # ms; base RTT = 2 * (link_latency + source latency)
+  source_latency_range:
+    - [0.1, 0.1]  # ms
+  qdisc: [PI2]
+  pi2_target: [15.0]  # ms
+  seed: [1]
+
+model_parameters:
+  computation_parameters:
+    stp: 0.01  # ms
