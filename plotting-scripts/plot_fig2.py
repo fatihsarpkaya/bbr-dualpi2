@@ -1,42 +1,33 @@
-"""Paper Figure 2: normalized Prague throughput with five Prague and five CUBIC, BBRv2 or BBRv1 flows under DualPI2.
-
-Rows = Classic CC (CUBIC, BBRv2, BBRv1), columns = bottleneck capacity (100, 500 Mbps); in each panel
-x = PI2 delay target, y = base RTT. Cell value (colour and printed number) = Prague throughput / capacity over the
-last 60 s of the run, mean of three trials (results/coexistence_cells.csv `prague_share`, written by
-summarize_coexistence.py). Colour: coolwarm, blue = low, light grey = 0.5 (equal share), red = high.
-Writes figures/fig2_prague_share.{pdf,png}. Usage: python plot_fig2.py
-"""
+"""Figure 2: normalized Prague throughput with five Prague and five CUBIC, BBRv2 or BBRv1 flows (mean of three trials).
+Writes Plots/fig2.pdf."""
 import logging
 from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
-HERE = Path(__file__).resolve().parent.parent
-CELLS = HERE / "results" / "coexistence_cells.csv"
-OUT = HERE / "figures" / "fig2_prague_share"
+import main_results
 
+OUT = Path(__file__).resolve().parent.parent / "Plots" / "fig2.pdf"
 CCS = [("cubic", "CUBIC"), ("bbr2", "BBRv2"), ("bbr1", "BBRv1")]  # rows, top to bottom
 BTLS = [(100, "100 Mbps"), (500, "500 Mbps")]  # columns
 TARGETS = [5, 15, 25, 50, 75]
 RTTS = [10, 30, 50]  # bottom to top
 CMAP = mpl.colormaps["coolwarm"].with_extremes(bad="white")
 NORM = mpl.colors.Normalize(0.0, 1.0)
-CELL_FONTSIZE = 6.5
 
-logging.getLogger("fontTools").setLevel(logging.ERROR)  # PDF font-subsetting chatter
+logging.getLogger("fontTools").setLevel(logging.ERROR)
 mpl.rcParams.update({
     "font.family": "serif", "font.serif": ["Times New Roman", "Times", "DejaVu Serif"], "mathtext.fontset": "stix",
-    "pdf.fonttype": 42, "ps.fonttype": 42,  # embed TrueType fonts (IEEE PDF eXpress rejects Type 3)
+    "pdf.fonttype": 42, "ps.fonttype": 42,
     "font.size": 8, "axes.labelsize": 9, "xtick.labelsize": 8, "ytick.labelsize": 8,
     "hatch.linewidth": 0.5, "axes.linewidth": 0.0,
 })
 
 
 def text_color(value):
-    """Black, unless white contrasts clearly more with the cell colour (>= 1.2 x black's contrast ratio)."""
+    """Black, unless white contrasts clearly more with the cell colour."""
     c = np.asarray(CMAP(NORM(value))[:3])
     c = np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
     lum = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
@@ -48,7 +39,7 @@ def draw(ax, grid):
     ax.pcolormesh(np.arange(nx + 1), np.arange(ny + 1), np.ma.masked_invalid(grid), cmap=CMAP, norm=NORM,
                   edgecolors="white", linewidth=0.6)
     for i, j in zip(*np.where(np.isfinite(grid))):
-        ax.text(j + 0.5, i + 0.5, f"{grid[i, j]:.2f}", ha="center", va="center", fontsize=CELL_FONTSIZE,
+        ax.text(j + 0.5, i + 0.5, f"{grid[i, j]:.2f}", ha="center", va="center", fontsize=6.5,
                 color=text_color(grid[i, j]))
     ax.set_xlim(0, nx)
     ax.set_ylim(0, ny)
@@ -60,14 +51,11 @@ def draw(ax, grid):
 
 
 def main():
-    c = pd.read_csv(CELLS)
-    if len(c) != 90 or not (c.trials == 3).all():
-        raise SystemExit(f"expected 90 configurations with 3 trials each, got {len(c)}, trials {sorted(c.trials.unique())}")
-    m = {(r.cc, r.btl_mbps, r.rtt_ms, r.target_ms): r.prague_share for r in c.itertuples()}
+    d = main_results.load()
+    share = {(r.cc, r.btl_mbps, r.rtt_ms, r.target_ms): r.prague_share for r in d.itertuples()}
 
-    # Geometry in inches for an IEEE single column (\columnwidth = 3.5 in)
-    W, left, gap_x, gap_y, top, bottom = 3.5, 0.60, 0.07, 0.07, 0.22, 0.42
-    cb_gap, cb_w, cb_room = 0.10, 0.08, 0.42  # gap to the colorbar, bar width, room for its ticks and label
+    W, left, gap_x, gap_y, top, bottom = 3.5, 0.60, 0.07, 0.07, 0.22, 0.42  # inches; IEEE column width 3.5 in
+    cb_gap, cb_w, cb_room = 0.10, 0.08, 0.42
     pw = (W - left - gap_x - cb_gap - cb_w - cb_room) / 2
     ph = pw / len(TARGETS) * len(RTTS)  # square cells
     H = top + 3 * ph + 2 * gap_y + bottom
@@ -76,9 +64,7 @@ def main():
         y0 = bottom + (len(CCS) - 1 - r) * (ph + gap_y)
         for col, (btl, btl_label) in enumerate(BTLS):
             ax = fig.add_axes([(left + col * (pw + gap_x)) / W, y0 / H, pw / W, ph / H])
-            grid = np.array([[m.get((cc, btl, rtt, t), np.nan) for t in TARGETS] for rtt in RTTS])
-            assert np.isfinite(grid).all(), f"missing configuration in {cc} {btl} Mbps"
-            draw(ax, grid)
+            draw(ax, np.array([[share[(cc, btl, rtt, t)] for t in TARGETS] for rtt in RTTS]))
             if r == 0:
                 ax.set_title(btl_label, fontsize=9, fontweight="bold", pad=4)
             if r == len(CCS) - 1:
@@ -97,12 +83,8 @@ def main():
     cb.ax.tick_params(length=2, width=0.5, pad=1.5, labelsize=8)
     cb.outline.set_linewidth(0.5)
     cb.set_label("Prague throughput share", fontsize=9, labelpad=3)
-
-    OUT.parent.mkdir(exist_ok=True)
-    fig.savefig(OUT.with_suffix(".pdf"), bbox_inches="tight", pad_inches=0.02)
-    fig.savefig(OUT.with_suffix(".png"), dpi=300, bbox_inches="tight", pad_inches=0.02)
-    plt.close(fig)
-    print(f"wrote figures/{OUT.name}.pdf and .png")
+    fig.savefig(OUT, bbox_inches="tight", pad_inches=0.02)
+    print(f"wrote {OUT.name}")
 
 
 if __name__ == "__main__":
