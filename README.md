@@ -1,4 +1,4 @@
-# When Coupling Backfires: Measuring and Modeling BBR-Induced L4S Degradation under DualPI2
+# When Coupling Backfires: BBR-Induced L4S Degradation under DualPI2
 
 This repository contains the artifacts for the paper **"When Coupling Backfires: BBR-Induced L4S Degradation under DualPI2."**
 
