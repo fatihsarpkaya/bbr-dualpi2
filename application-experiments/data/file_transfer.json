@@ -1,0 +1,486 @@
+{
+  "trials": [
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_t1_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "4": {
+          "completion_time_sec": 1642.37
+        },
+        "1": {
+          "completion_time_sec": 1718.43
+        },
+        "5": {
+          "completion_time_sec": 1690.99
+        },
+        "3": {
+          "completion_time_sec": 1669.8
+        },
+        "2": {
+          "completion_time_sec": 1691.34
+        }
+      },
+      "completion_times_sec": [
+        1642.37,
+        1718.43,
+        1690.99,
+        1669.8,
+        1691.34
+      ],
+      "mean_completion_time_sec": 1682.59,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_t2_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "5": {
+          "completion_time_sec": 1764.69
+        },
+        "1": {
+          "completion_time_sec": 1760.64
+        },
+        "2": {
+          "completion_time_sec": 1775.61
+        },
+        "4": {
+          "completion_time_sec": 1764.2
+        },
+        "3": {
+          "completion_time_sec": 1760.86
+        }
+      },
+      "completion_times_sec": [
+        1764.69,
+        1760.64,
+        1775.61,
+        1764.2,
+        1760.86
+      ],
+      "mean_completion_time_sec": 1765.2,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_t3_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "5": {
+          "completion_time_sec": 1679.53
+        },
+        "1": {
+          "completion_time_sec": 1744.96
+        },
+        "4": {
+          "completion_time_sec": 1718.4
+        },
+        "3": {
+          "completion_time_sec": 1729.76
+        },
+        "2": {
+          "completion_time_sec": 1704.34
+        }
+      },
+      "completion_times_sec": [
+        1679.53,
+        1744.96,
+        1718.4,
+        1729.76,
+        1704.34
+      ],
+      "mean_completion_time_sec": 1715.4,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_t4_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "1": {
+          "completion_time_sec": 1716.8
+        },
+        "5": {
+          "completion_time_sec": 1749.03
+        },
+        "4": {
+          "completion_time_sec": 1785.0
+        },
+        "3": {
+          "completion_time_sec": 1780.8
+        },
+        "2": {
+          "completion_time_sec": 1774.06
+        }
+      },
+      "completion_times_sec": [
+        1716.8,
+        1749.03,
+        1785.0,
+        1780.8,
+        1774.06
+      ],
+      "mean_completion_time_sec": 1761.14,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_t5_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "4": {
+          "completion_time_sec": 1712.74
+        },
+        "1": {
+          "completion_time_sec": 1746.11
+        },
+        "5": {
+          "completion_time_sec": 1758.62
+        },
+        "3": {
+          "completion_time_sec": 1755.94
+        },
+        "2": {
+          "completion_time_sec": 1756.57
+        }
+      },
+      "completion_times_sec": [
+        1712.74,
+        1746.11,
+        1758.62,
+        1755.94,
+        1756.57
+      ],
+      "mean_completion_time_sec": 1746.0,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_t1_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "5": {
+          "completion_time_sec": 141.44
+        },
+        "2": {
+          "completion_time_sec": 151.15
+        },
+        "1": {
+          "completion_time_sec": 147.57
+        },
+        "4": {
+          "completion_time_sec": 150.36
+        },
+        "3": {
+          "completion_time_sec": 151.55
+        }
+      },
+      "completion_times_sec": [
+        141.44,
+        151.15,
+        147.57,
+        150.36,
+        151.55
+      ],
+      "mean_completion_time_sec": 148.41,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_t2_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "4": {
+          "completion_time_sec": 153.56
+        },
+        "1": {
+          "completion_time_sec": 154.88
+        },
+        "5": {
+          "completion_time_sec": 155.25
+        },
+        "3": {
+          "completion_time_sec": 155.96
+        },
+        "2": {
+          "completion_time_sec": 158.62
+        }
+      },
+      "completion_times_sec": [
+        153.56,
+        154.88,
+        155.25,
+        155.96,
+        158.62
+      ],
+      "mean_completion_time_sec": 155.65,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_t3_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "3": {
+          "completion_time_sec": 161.03
+        },
+        "2": {
+          "completion_time_sec": 159.62
+        },
+        "4": {
+          "completion_time_sec": 156.37
+        },
+        "1": {
+          "completion_time_sec": 160.25
+        },
+        "5": {
+          "completion_time_sec": 161.15
+        }
+      },
+      "completion_times_sec": [
+        161.03,
+        159.62,
+        156.37,
+        160.25,
+        161.15
+      ],
+      "mean_completion_time_sec": 159.68,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_t4_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "5": {
+          "completion_time_sec": 146.11
+        },
+        "2": {
+          "completion_time_sec": 152.13
+        },
+        "1": {
+          "completion_time_sec": 150.2
+        },
+        "4": {
+          "completion_time_sec": 148.72
+        },
+        "3": {
+          "completion_time_sec": 149.38
+        }
+      },
+      "completion_times_sec": [
+        146.11,
+        152.13,
+        150.2,
+        148.72,
+        149.38
+      ],
+      "mean_completion_time_sec": 149.31,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_t5_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "1": {
+          "completion_time_sec": 158.78
+        },
+        "4": {
+          "completion_time_sec": 159.51
+        },
+        "3": {
+          "completion_time_sec": 154.81
+        },
+        "2": {
+          "completion_time_sec": 154.83
+        },
+        "5": {
+          "completion_time_sec": 152.63
+        }
+      },
+      "completion_times_sec": [
+        158.78,
+        159.51,
+        154.81,
+        154.83,
+        152.63
+      ],
+      "mean_completion_time_sec": 156.11,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_t1_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "4": {
+          "completion_time_sec": 71.94
+        },
+        "2": {
+          "completion_time_sec": 73.32
+        },
+        "1": {
+          "completion_time_sec": 73.43
+        },
+        "5": {
+          "completion_time_sec": 73.13
+        },
+        "3": {
+          "completion_time_sec": 71.54
+        }
+      },
+      "completion_times_sec": [
+        71.94,
+        73.32,
+        73.43,
+        73.13,
+        71.54
+      ],
+      "mean_completion_time_sec": 72.67,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_t2_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "2": {
+          "completion_time_sec": 71.68
+        },
+        "1": {
+          "completion_time_sec": 71.35
+        },
+        "5": {
+          "completion_time_sec": 72.87
+        },
+        "4": {
+          "completion_time_sec": 72.55
+        },
+        "3": {
+          "completion_time_sec": 73.16
+        }
+      },
+      "completion_times_sec": [
+        71.68,
+        71.35,
+        72.87,
+        72.55,
+        73.16
+      ],
+      "mean_completion_time_sec": 72.32,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_t3_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "1": {
+          "completion_time_sec": 71.31
+        },
+        "2": {
+          "completion_time_sec": 72.86
+        },
+        "5": {
+          "completion_time_sec": 71.69
+        },
+        "4": {
+          "completion_time_sec": 72.16
+        },
+        "3": {
+          "completion_time_sec": 73.62
+        }
+      },
+      "completion_times_sec": [
+        71.31,
+        72.86,
+        71.69,
+        72.16,
+        73.62
+      ],
+      "mean_completion_time_sec": 72.33,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_t4_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "1": {
+          "completion_time_sec": 72.83
+        },
+        "4": {
+          "completion_time_sec": 71.55
+        },
+        "3": {
+          "completion_time_sec": 73.36
+        },
+        "2": {
+          "completion_time_sec": 73.75
+        },
+        "5": {
+          "completion_time_sec": 73.28
+        }
+      },
+      "completion_times_sec": [
+        72.83,
+        71.55,
+        73.36,
+        73.75,
+        73.28
+      ],
+      "mean_completion_time_sec": 72.95,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    },
+    {
+      "file": "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_t5_tx_L4S.log",
+      "target_bytes": 104858368,
+      "flows": {
+        "5": {
+          "completion_time_sec": 75.9
+        },
+        "1": {
+          "completion_time_sec": 74.63
+        },
+        "4": {
+          "completion_time_sec": 76.43
+        },
+        "3": {
+          "completion_time_sec": 74.69
+        },
+        "2": {
+          "completion_time_sec": 76.45
+        }
+      },
+      "completion_times_sec": [
+        75.9,
+        74.63,
+        76.43,
+        74.69,
+        76.45
+      ],
+      "mean_completion_time_sec": 75.62,
+      "n_flows_completed": 5,
+      "n_flows_total": 5
+    }
+  ],
+  "experiments": {
+    "file_transfer-TCP_updates-TCP_prague_bbr1_DualPI2_15_30ms_100Mbps_tx_L4S": {
+      "mean_flow_completion_time_sec": 1734.06,
+      "total_flows": 25,
+      "num_trials": 5
+    },
+    "file_transfer-TCP_updates-TCP_prague_bbr3_DualPI2_15_30ms_100Mbps_tx_L4S": {
+      "mean_flow_completion_time_sec": 153.83,
+      "total_flows": 25,
+      "num_trials": 5
+    },
+    "file_transfer-TCP_updates-TCP_prague_cubic_DualPI2_15_30ms_100Mbps_tx_L4S": {
+      "mean_flow_completion_time_sec": 73.18,
+      "total_flows": 25,
+      "num_trials": 5
+    }
+  }
+}

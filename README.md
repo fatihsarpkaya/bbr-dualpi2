@@ -14,6 +14,7 @@ of an existing BBRv1/BBRv2 fluid model explains the p′ operating regimes.
 
 | Folder | Contents | Paper |
 |---|---|---|
+| [`application-experiments/`](application-experiments/) | Motivation experiment: Prague video streaming, file transfer and video call against bulk CUBIC or BBRv1 flows. Per-trial results and figure script. | Fig. 1 |
 | [`linux-experiments/`](linux-experiments/) | Testbed sweep: 5 Prague flows against 5 CUBIC, BBRv1 or BBRv2 flows, across capacity, base RTT and PI2 target, plus Classic-only runs. Raw logs, summary CSVs and figure scripts. | Figs. 2 and 3; the measured data in Figs. 4 and 5 |
 | `fluid-model/` | The PI2-extended BBR fluid model (to be added) | Figs. 4 and 5 |
 
@@ -24,13 +25,14 @@ These commands need Python 3.9 or newer:
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+(cd application-experiments/scripts && python plot_fig1.py)   # Fig. 1 -> figures/fig1_application_impact.{pdf,png}
 cd linux-experiments/scripts
 python summarize_coexistence.py   # raw logs -> results/*.csv
 python plot_fig2.py               # Fig. 2 -> figures/fig2_prague_share.{pdf,png}
 python plot_fig3.py               # Fig. 3 -> figures/fig3_pprime_vs_prague_share.{pdf,png}
 ```
 
-The summary CSVs and figures are committed, so you can run the plotting scripts without the first step.
+The summary CSVs and figures are committed, so you can run the Fig. 2 and Fig. 3 scripts without the summary step.
 [`linux-experiments/README.md`](linux-experiments/README.md) describes the following:
 - the testbed and its configuration;
 - the file formats and naming scheme;

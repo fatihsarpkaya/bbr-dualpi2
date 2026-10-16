@@ -9,7 +9,7 @@ together with the Classic-only runs used for comparison with the fluid model. Ea
 | [`scripts/`](scripts/) | Data readers, the run summary, and the scripts for paper Figures 2 and 3 |
 | [`results/`](results/) | Summary CSVs written by `scripts/summarize_coexistence.py` |
 | [`figures/`](figures/) | Paper Figures 2 and 3 (PDF and 300 dpi PNG) |
-| [`fabric/`](fabric/) | Experiment tooling: the router's DualPI2 statistics poller (the FABRIC notebook will be added here) |
+| [`fabric/`](fabric/) | The FABRIC notebook that builds the testbed and runs the sweep, and the router's DualPI2 statistics poller |
 
 ## Reproducing the figures
 
@@ -35,8 +35,16 @@ figures use Times New Roman when it is installed; otherwise matplotlib falls bac
 ## Testbed
 
 The testbed runs on [FABRIC](https://fabric-testbed.net/). Every node is an Ubuntu 22.04 VM with 4 cores and 32 GB of
-RAM. The topology is a dumbbell: one L4S sender (`tx_L4S`) and one Classic sender (`tx_legacy`) send through a router
-(`router`) to their receivers.
+RAM. The topology is a dumbbell of six nodes:
+
+```
+tx_L4S    ─┐                                     ┌─ rx_L4S
+           ├─ delay (netem) ── router (DualPI2) ─┤
+tx_legacy ─┘                                     └─ rx_legacy
+```
+
+[`fabric/experiment_fabric_linux.ipynb`](fabric/experiment_fabric_linux.ipynb) reserves this slice, installs the
+kernels, configures every node and runs the sweep.
 
 | Node | Kernel | Congestion control |
 |---|---|---|
@@ -49,17 +57,22 @@ The sender kernel strings are as recorded in each run's iperf3 JSON.
 
 Each node is configured as follows:
 - **Router.** The bottleneck is an HTB class at capacity C with `dualpi2` as its child qdisc. Only two parameters are
-  set: `limit` (a buffer of 8 BDP, in packets) and `target` (the PI2 delay target). Everything else is at its
-  default: step threshold 1 ms, coupling factor k = 2, PI2 update interval 16 ms, and Classic protection 10% (90/10
-  WRR when both queues are backlogged).
-- **Path.** netem emulates the base RTT, NIC offloads are disabled, and every interface uses a 1500-byte MTU.
+  set:
+  - `limit`: a buffer of 8 BDP in 1500-byte packets, rounded up.
+  - `target`: the PI2 delay target.
+
+  Everything else is at its default: step threshold 1 ms, coupling factor k = 2, PI2 update interval 16 ms, and
+  Classic protection 10% (90/10 WRR when both queues are backlogged).
+- **Path.** The `delay` node adds half the base RTT with netem on each of its two interfaces. GRO, LRO, GSO and TSO
+  are off on every interface, and every interface uses a 1500-byte MTU.
 - **ECN.** Classic senders run with ECN disabled, so the Classic queue drops packets and every CE mark lands on L4S
   packets. Prague's RTT-independence reference (`prague_rtt_target`) is 25 ms.
 - **Traffic.** Each sender runs one iperf3 3.19.1 client with 5 parallel flows (`-P 5 -C <cc> -J`), which gives 5
   Prague flows against 5 Classic flows.
 - **Logging.**
   - Both senders log `ss -eipn` every ~0.13 s, timestamped by `ts`.
-  - The router polls `tc -s qdisc` every ~0.11 s with [`fabric/dualpi2_v2.sh`](fabric/dualpi2_v2.sh).
+  - The router polls `tc -s qdisc` every ~0.11 s with [`fabric/dualpi2_v2.sh`](fabric/dualpi2_v2.sh). The notebook
+    runs it from the router's home directory, so copy it there first.
   - The 60 s CUBIC runs used an earlier poller that wrote only the first six columns.
 
 ## Sweeps
@@ -72,6 +85,11 @@ Each node is configured as follows:
 
 Every run uses an 8-BDP buffer. Only the CUBIC runs of the 60 s Classic-alone sweep are included; its BBR runs are
 superseded by the 180 s sweep.
+
+The notebook's `exp_factors` cell shows one batch (100 Mbps, trials 1–3); the data were collected in several batches.
+- **Coexistence runs:** capacities of 100 and 500 Mbps, trials 700–702.
+- **Classic-alone runs:** `aqm = 'pi2'`, trials 800–802 (BBR, 180 s) and 900–902 (CUBIC, 60 s). No Prague client
+  ran in these.
 
 The Classic-alone file names still contain `prague` and `5_5`, but no Prague flows ran. There are no `tx_L4S` files,
 and the router's L4S packet counter (`pkts_in_l`) is 0 in all 135 router logs. Their AQM label is `pi2` rather than
