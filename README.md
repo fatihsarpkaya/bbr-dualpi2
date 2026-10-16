@@ -27,23 +27,22 @@ python plot_fig2.py
 python plot_fig3.py
 python plot_fig4.py
 python plot_fig5.py
-python sensitivity.py   # the fluid-model sensitivity runs of Section V-B, as a table
+python sensitivity.py   # Section V-B sensitivity results (printed table)
 ```
 
 The figures are written to `Plots/`, with one file per subfigure for Figures 4 and 5. The raw logs in `Experiment_Data/` are xz-compressed; the scripts read them directly.
 
 ## Running the Fluid Model
 
-The fluid-model results in `Experiment_Data/fluid-model/` can be regenerated with Python alone; no testbed is needed:
+The fluid-model results in `Experiment_Data/fluid-model/` can be regenerated without a testbed:
 
 ```bash
 pip install -r requirements.txt
 cd fluid-model
-python run_model.py -c configs/bbr1_100mbps_rtt30_target15.yaml   # one configuration
-JOBS=4 ./run_all.sh                                                # all configurations
+JOBS=4 ./run_all.sh
 ```
 
-[`fluid-model/README.md`](fluid-model/README.md) describes the model, our changes, the configurations, and their running time and memory.
+See [`fluid-model/README.md`](fluid-model/README.md) for details.
 
 ## Running the Experiments on FABRIC
 
