@@ -8,8 +8,9 @@ Low Latency, Low Loss, Scalable Throughput (L4S) uses DualPI2 to separate L4S an
 
 This repository includes:
 
-- [`experiment_fabric_linux.ipynb`](experiment_fabric_linux.ipynb), the FABRIC experiment notebook.
-- [`utils/`](utils/), containing the DualPI2 logging script run on the router.
+- [`experiment_fabric_linux.ipynb`](experiment_fabric_linux.ipynb), the FABRIC experiment notebook for the main and Classic-only experiments.
+- [`experiment_fabric_motivation.ipynb`](experiment_fabric_motivation.ipynb), the FABRIC experiment notebook for the motivation experiments (Figure 1).
+- [`utils/`](utils/), containing the DualPI2 logging script run on the router and the analysis scripts of the motivation experiments.
 - [`fluid-model/`](fluid-model/), containing the BBRv1/BBRv2 fluid model of Scherrer et al. with our PI2 extension, and the configurations of our model runs.
 - [`Experiment_Data/`](Experiment_Data/), containing the motivation (Figure 1), main (Figures 2, 3, and 5), Classic-only (Figure 4), and fluid-model (Figures 4 and 5) results.
 - [`plotting-scripts/`](plotting-scripts/), containing the scripts that generate the figures.
@@ -55,6 +56,32 @@ git clone https://github.com/fatihsarpkaya/bbr-dualpi2.git
 cd bbr-dualpi2
 ```
 
-Open `experiment_fabric_linux.ipynb` in JupyterLab and follow it section by section. Do not use **Run All**, because slice creation, kernel installation, node reboots, and experiment execution must finish in order. Before running the experiments, upload `utils/dualpi2_v2.sh` to the router's home directory; the notebook runs it there to log the DualPI2 statistics.
+Open the notebook in JupyterLab and follow it section by section: `experiment_fabric_linux.ipynb` for the main and Classic-only experiments, and `experiment_fabric_motivation.ipynb` for the motivation experiments. Do not use **Run All**, because slice creation, kernel installation, node reboots, and experiment execution must finish in order. Before running the main experiments, upload `utils/dualpi2_v2.sh` to the router's home directory; the notebook runs it there to log the DualPI2 statistics.
+
+### Endpoint Software
+
+The motivation experiments use `socat`, [MGEN](https://github.com/fatihsarpkaya/mgen), and [UDP Prague](https://github.com/fatihsarpkaya/udp_prague), installed as in [L4S-ICNP2026](https://github.com/fatihsarpkaya/L4S-ICNP2026). Install them on `tx_L4S`, `tx_legacy`, `rx_L4S`, and `rx_legacy`:
+
+```bash
+sudo apt update
+sudo apt install -y socat build-essential g++ libpcap-dev git
+
+mkdir -p ~/L4S_Project
+cd ~/L4S_Project
+git clone --recursive https://github.com/fatihsarpkaya/mgen.git
+git clone https://github.com/fatihsarpkaya/udp_prague.git
+
+cd ~/L4S_Project/udp_prague
+make lib_prague
+make udp_prague_receiver
+
+cd ~/L4S_Project/mgen/makefiles
+make -f Makefile.linux mgen
+```
+
+These commands create the paths expected by the notebook:
+
+- `/home/ubuntu/L4S_Project/mgen/makefiles/mgen`
+- `/home/ubuntu/L4S_Project/udp_prague/udp_prague_receiver`
 
 Delete the FABRIC slice after completing the experiments to release the reserved resources.
