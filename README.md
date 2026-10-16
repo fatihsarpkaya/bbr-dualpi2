@@ -60,7 +60,7 @@ Open the notebook in JupyterLab and follow it section by section: `experiment_fa
 
 ### Endpoint Software
 
-The motivation experiments use `socat`, [MGEN](https://github.com/fatihsarpkaya/mgen), and [UDP Prague](https://github.com/fatihsarpkaya/udp_prague), installed as in [L4S-ICNP2026](https://github.com/fatihsarpkaya/L4S-ICNP2026). Install them on `tx_L4S`, `tx_legacy`, `rx_L4S`, and `rx_legacy`:
+The motivation experiments use `socat`, [MGEN](https://github.com/fatihsarpkaya/mgen), and [UDP Prague](https://github.com/fatihsarpkaya/udp_prague). Install them on `tx_L4S`, `tx_legacy`, `rx_L4S`, and `rx_legacy`:
 
 ```bash
 sudo apt update
